@@ -719,7 +719,6 @@ class Key(object):
             #    headers['Trailer'] = "Content-MD5"
         else:
             headers['Content-Length'] = str(self.size)
-        headers['Expect'] = '100-Continue'
         headers = boto.utils.merge_meta(headers, self.metadata, provider)
         resp = self.bucket.connection.make_request('PUT', self.bucket.name,
                                                    self.name, headers,

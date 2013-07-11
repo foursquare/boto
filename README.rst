@@ -1,7 +1,7 @@
 ####
 boto
 ####
-boto 2.6.0
+boto 2.6.0-fsa
 19-Sep-2012
 
 .. image:: https://secure.travis-ci.org/boto/boto.png?branch=develop
