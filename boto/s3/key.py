@@ -336,7 +336,7 @@ class Key(object):
                             be encrypted on the server-side by S3 and
                             will be stored in an encrypted form while
                             at rest in S3.
-                            
+
         :rtype: :class:`boto.s3.key.Key` or subclass
         :returns: An instance of the newly created key object
         """
@@ -458,7 +458,7 @@ class Key(object):
                                  See http://goo.gl/EWOPb for details.
 
         :type expires_in_absolute: bool
-        :param expires_in_absolute: 
+        :param expires_in_absolute:
 
         :type version_id: string
         :param version_id: The version_id of the object to GET. If specified
@@ -565,7 +565,7 @@ class Key(object):
                 fp.seek(spos)
             elif spos is None and self.read_from_stream:
                 # if seek is not supported, and we've read from this
-                # stream already, then we need to abort retries to 
+                # stream already, then we need to abort retries to
                 # avoid setting bad data.
                 raise provider.storage_data_error(
                     'Cannot retry failed request. fp does not support seeking.')
@@ -687,9 +687,9 @@ class Key(object):
         if 'Content-Encoding' in headers:
             self.content_encoding = headers['Content-Encoding']
         if 'Content-Type' in headers:
-            # Some use cases need to suppress sending of the Content-Type 
+            # Some use cases need to suppress sending of the Content-Type
             # header and depend on the receiving server to set the content
-            # type. This can be achieved by setting headers['Content-Type'] 
+            # type. This can be achieved by setting headers['Content-Type']
             # to None when calling this method.
             if headers['Content-Type'] is None:
                 # Delete null Content-Type value to skip sending that header.
@@ -711,7 +711,6 @@ class Key(object):
             #    headers['Trailer'] = "Content-MD5"
         else:
             headers['Content-Length'] = str(self.size)
-        headers['Expect'] = '100-Continue'
         headers = boto.utils.merge_meta(headers, self.metadata, provider)
         resp = self.bucket.connection.make_request('PUT', self.bucket.name,
                                                    self.name, headers,
@@ -740,11 +739,11 @@ class Key(object):
         """
         tup = compute_md5(fp, size=size)
         # Returned values are MD5 hash, base64 encoded MD5 hash, and data size.
-        # The internal implementation of compute_md5() needs to return the 
+        # The internal implementation of compute_md5() needs to return the
         # data size but we don't want to return that value to the external
-        # caller because it changes the class interface (i.e. it might        
-        # break some code) so we consume the third tuple value here and 
-        # return the remainder of the tuple to the caller, thereby preserving 
+        # caller because it changes the class interface (i.e. it might
+        # break some code) so we consume the third tuple value here and
+        # return the remainder of the tuple to the caller, thereby preserving
         # the existing interface.
         self.size = tup[2]
         return tup[0:2]
@@ -909,7 +908,7 @@ class Key(object):
                       from the file pointer. Less bytes may be available.
 
         :type rewind: bool
-        :param rewind: (optional) If True, the file pointer (fp) will be 
+        :param rewind: (optional) If True, the file pointer (fp) will be
                        rewound to the start before any bytes are read from
                        it. The default behaviour is False which reads from
                        the current position of the file pointer (fp).
